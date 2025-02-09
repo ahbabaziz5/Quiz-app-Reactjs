@@ -1,10 +1,12 @@
 import React,{ useState } from "react";
+import { useNavigate } from "react-router";
+
 
 const Quiz = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const[interator,setIterator] = useState(0)
   const[score,setScore] = useState(0)
-
+  const navigate = useNavigate();
   const questions = [
     // English Questions
     {
@@ -103,7 +105,7 @@ const Quiz = () => {
     setSelectedOption(option);
     if (option === questions[interator].correct ) {
       setTimeout(() => {
-        setIterator((prev) => prev + 1);
+        // setIterator((prev) => prev + 1);
         setScore((prev) => prev + 5)
         // Move to next question after a short delay
         setSelectedOption(null); // Reset selected option
@@ -117,6 +119,10 @@ const Quiz = () => {
     if (interator < questions.length-1) {
       setIterator(interator + 1);
     //   setSelectedOption(null); // Reset selection for next question
+    }
+    else if(interator>=questions.length-1 ){
+      navigate("/Result", { state: { score }, replace: true });
+
     }
   }
 const handlePrev = ()=>{
@@ -171,31 +177,20 @@ const handlePrev = ()=>{
 
         {/* Navigation Buttons */}
         <div className="mt-6 flex justify-end">
-            {/* {
-                interator > 0 ?
-                <button
-               className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
-            
-               onClick={handlePrev}
-             >
-               Previous
-             </button>:
-                <button
-                className="px-4 py-2 bg-gray-400 text-white rounded-lg disabled:opacity-50"
-                disabled
-                onClick={handlePrev}
-              >
-                Previous
-              </button>
-               
-            } */}
+        <button 
+  className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:bg-gray-400"
+  onClick={handleQuestions}
+  // disabled={interator <= 0} // Disable button if interator is 0 or less
+>
+  Next
+</button>
           
 
 
           
-          <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700" onClick={handleQuestions}>
+          {/* <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700" onClick={handleQuestions}>
             Next
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

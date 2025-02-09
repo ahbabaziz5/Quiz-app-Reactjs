@@ -53,13 +53,14 @@ const Signup = () => {
    try{
     await register(email,password,{firstName,lastName,confirmPassword,rollNo})
     console.log("user added Sucessfully")
+    setUserData(" ")
   }catch(e){
     console.log("user not added",e)
     
    }
    
   }
-  userData(" ")
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
