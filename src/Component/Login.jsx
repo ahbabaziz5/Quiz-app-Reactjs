@@ -1,10 +1,11 @@
 import React,{ useState } from "react"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { useAuth } from "../Context/context"
 
 
 const Login = () => {
   const{login,}=useAuth();
+  const navigate = useNavigate();
   // const [isLogin, setIsLogin] = useState(true)
   const [userData, setUserData] = useState({
     email: "",
@@ -26,7 +27,8 @@ const Login = () => {
    try{
 await login(userData.email,userData.password)
 console.log("user Login Sucessfully")
-window.location.href="/Quiz"
+navigate("/Quiz")
+
    }catch(e){
 console.log("user not found")
    }
